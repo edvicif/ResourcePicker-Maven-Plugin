@@ -30,12 +30,12 @@ import java.io.IOException;
  * 
  * @phase process-sources
  */
-public class MyMojo
+public class ResourcePickerMojo
     extends AbstractMojo
 {
     /**
      * Location of the file.
-     * @parameter expression="${project.build.directory}"
+     * @parameter expression="${project.build.sourceDirectory}/com/mycompany"
      * @required
      */
     private File outputDirectory;
@@ -50,14 +50,17 @@ public class MyMojo
             f.mkdirs();
         }
 
-        File touch = new File( f, "touch.txt" );
+        File touch = new File( f, "R.java" );
 
         FileWriter w = null;
         try
         {
             w = new FileWriter( touch );
 
-            w.write( "touch.txt" );
+            w.write( "package com.mycompany;\n"
+                    + "public enum R {\n"
+                    + "HELLO, PEACOCKS, SEASON, TWO, DOS;\n"
+                    + "}" );
         }
         catch ( IOException e )
         {
