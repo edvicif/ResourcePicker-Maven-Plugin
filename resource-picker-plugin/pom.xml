@@ -4,7 +4,7 @@
 
   <groupId>org.peacocks</groupId>
   <artifactId>resource-picker-plugin</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>SPIKE-001</version>
   <packaging>maven-plugin</packaging>
 
   <name>resource-picker-plugin Maven Plugin</name>
