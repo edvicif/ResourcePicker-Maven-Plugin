@@ -7,12 +7,9 @@ package org.peacocks;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collections;
 import java.util.List;
-import org.junit.AfterClass;
-import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  *
@@ -50,5 +47,16 @@ public class ResourceScannerTest {
         String expected = "test.something";
         assertEquals(expected, ResourceScanner.turnSeparatorsToDots(test1));
         assertEquals(expected,ResourceScanner.turnSeparatorsToDots(test2));
+    }
+    
+   @Test
+   public void testThatSpecialCharactersLeavedAsTheyWere(){
+        String test3 = "test_something/sg";
+        String expected3 = "test_something.sg";
+        assertEquals(expected3,ResourceScanner.turnSeparatorsToDots(test3));
+     
+        String test4 = "test@something/sg";
+        String expected4 = "test@something.sg";
+        assertEquals(expected4,ResourceScanner.turnSeparatorsToDots(test4));
     }
 }

@@ -87,6 +87,6 @@ public enum ResourceScanner {
     }
 
     static String turnSeparatorsToDots(String pathWithSeparator) {
-        return pathWithSeparator.replaceAll("\\W", ".");
+        return pathWithSeparator.replaceAll("[\\\\/]", ".");
     }
 }
