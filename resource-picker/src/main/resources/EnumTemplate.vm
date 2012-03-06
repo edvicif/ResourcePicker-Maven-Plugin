@@ -1,0 +1,15 @@
+package $packageName
+##TODO find foreach first to able to use tab at first characters
+##TODO use resource file name
+
+public enum R{
+
+#foreach ( ${resource} in ${resources} )
+ ${resource.enumName}(${resource.resourceName}) #if( ${foreach.hasNext} ),#end #end ;
+
+    private final String fileName;
+
+    private R(String fileName) {
+        this.fileName = fileName;
+    }
+}

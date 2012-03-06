@@ -3,9 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.peacocks</groupId>
+    <parent>
+        <groupId>org.peacocks</groupId>
+        <artifactId>resource-picker-parrent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <artifactId>resource-picker-plugin</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
 
     <name>resource-picker-plugin Maven Plugin</name>
@@ -19,24 +22,25 @@
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-plugin-api</artifactId>
-            <version>2.0</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.10</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven</artifactId>
-            <version>3.0.4</version>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-project</artifactId>
-            <version>2.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>resource-picker</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

@@ -1,6 +1,7 @@
-package org.peacocks;
+package org.peacocks.resourcepicker;
 
 import java.util.Objects;
+import org.apache.commons.lang.StringUtils;
 
 /**
  *
@@ -16,6 +17,16 @@ public class ResourceSubject {
         this.packageName = packageName;
         this.resourceName = resourceName;
         this.resourceType = resourceType;
+    }
+    
+    public String getEnumName(){
+        //TODO repleace null check with apachecommons
+        StringBuilder enumName = new StringBuilder(resourceName.toUpperCase());
+        if(StringUtils.isNotEmpty(resourceType)){
+            enumName.append("_").append(resourceType.toUpperCase());
+        }
+        return enumName.toString();
+                
     }
 
     public String getPackageName() {

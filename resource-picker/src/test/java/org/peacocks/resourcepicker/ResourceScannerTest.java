@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.peacocks;
+package org.peacocks.resourcepicker;
 
 import java.io.IOException;
 import java.nio.file.Path;

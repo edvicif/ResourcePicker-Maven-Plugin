@@ -1,11 +1,10 @@
-package org.peacocks;
+package org.peacocks.resourcepicker;
 
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.LinkedList;
 import java.util.List;
-import org.apache.maven.model.Resource;
 
 /**
  *
@@ -13,10 +12,6 @@ import org.apache.maven.model.Resource;
 public enum ResourceScanner {
 
     INSTANCE;
-
-    public List<ResourceSubject> findResources(Resource mavenResource) throws IOException {
-        return findResources(mavenResource.getDirectory());
-    }
 
     List<ResourceSubject> findResources(Path startDir) throws IOException {
         FindResources findResources = new FindResources(startDir);
