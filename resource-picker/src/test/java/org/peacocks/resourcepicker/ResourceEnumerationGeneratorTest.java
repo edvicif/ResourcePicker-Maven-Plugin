@@ -20,7 +20,7 @@ import org.junit.BeforeClass;
  */
 public class ResourceEnumerationGeneratorTest {
     
-    private final ResourceEnumerationGenerator resourceEnumerationGenerator = new ResourceEnumerationGenerator();
+    private final ResourceEnumerationGenerator resourceEnumerationGenerator = ResourceEnumerationGenerator.INSTANCE;
     
     @Test
     public void testPackageGrouping() {

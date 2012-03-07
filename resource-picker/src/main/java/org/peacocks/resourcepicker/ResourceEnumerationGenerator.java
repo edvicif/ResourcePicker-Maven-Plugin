@@ -14,7 +14,8 @@ import org.apache.velocity.context.Context;
  *
  * @author edvicif
  */
-public class ResourceEnumerationGenerator {
+public enum ResourceEnumerationGenerator {
+    INSTANCE;
 
     public Map<String, String> generateEnumerations(List<ResourceSubject> resourceSubjects) {
         Map<String, List<ResourceSubject>> resourceSubjectsByPackage = groupResouceByPackage(resourceSubjects);
@@ -37,7 +38,7 @@ public class ResourceEnumerationGenerator {
         return resourceEnums;
     }
 
-    public Map<String, List<ResourceSubject>> groupResouceByPackage(List<ResourceSubject> resourceSubjects) {
+    Map<String, List<ResourceSubject>> groupResouceByPackage(List<ResourceSubject> resourceSubjects) {
         Map<String, List<ResourceSubject>> resourcesBySubjects = new HashMap<>();
         for (ResourceSubject resourceSubject : resourceSubjects) {
             if (!resourcesBySubjects.containsKey(resourceSubject.getPackageName())) {

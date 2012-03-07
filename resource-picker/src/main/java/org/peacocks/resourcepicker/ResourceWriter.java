@@ -1,7 +1,10 @@
 package org.peacocks.resourcepicker;
 
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.Map;
 
 /**
@@ -14,10 +17,6 @@ public enum ResourceWriter {
         writeResource(targetPath, resourceDefintions, "R.java");
     }
     public void writeResource(Path targetPath, Map<String, String> resourceDefintions, String resourceFileName) throws IOException{
-        if(!Files.isDirectory(targetPath)){
-            throw new IllegalArgumentException("Please specify to target directory");
-        }
-        
         if(!Files.exists(targetPath)){
             Files.createDirectory(targetPath);
         }

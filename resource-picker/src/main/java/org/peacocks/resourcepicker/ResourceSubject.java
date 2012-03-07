@@ -32,6 +32,10 @@ public class ResourceSubject {
     public String getPackageName() {
         return packageName;
     }
+    
+    public String getClassPath(){
+        return "/" + packageName.replace(".", "/") ;
+    }
 
     public String getResourceName() {
         return resourceName;

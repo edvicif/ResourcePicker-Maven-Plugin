@@ -5,11 +5,15 @@ package $packageName
 public enum R{
 
 #foreach ( ${resource} in ${resources} )
- ${resource.enumName}(${resource.resourceName}) #if( ${foreach.hasNext} ),#end #end ;
+ ${resource.enumName}("${resource.classPath}/${resource.resourceName}.${resource.resourceType}") #if( ${foreach.hasNext} ),#end #end ;
 
-    private final String fileName;
+    private final String classpathToResource;
 
-    private R(String fileName) {
-        this.fileName = fileName;
+    private R(String classpathToResource) {
+        this.classpathToResource = classpathToResource;
+    }
+
+    private String getPathToResource(){
+        return classpathToResource;
     }
 }
