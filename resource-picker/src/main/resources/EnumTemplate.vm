@@ -1,11 +1,18 @@
-package $packageName
+#if ( ${packageName} ne "" )
+package ${packageName};
+#end
 ##TODO find foreach first to able to use tab at first characters
 ##TODO use resource file name
 
 public enum R{
 
+#if ( ${packageName} ne "" )
 #foreach ( ${resource} in ${resources} )
- ${resource.enumName}("${resource.classPath}/${resource.resourceName}.${resource.resourceType}") #if( ${foreach.hasNext} ),#end #end ;
+#if(${foreach.count} == 1)    #end${resource.enumName}("/${resource.classPath}/${resource.resourceName}.${resource.resourceType}")#if( ${foreach.hasNext} ),#end #end;
+#{else}
+#foreach ( ${resource} in ${resources} )
+#if(${foreach.count} == 1)    #end${resource.enumName}("/${resource.resourceName}.${resource.resourceType}")#if( ${foreach.hasNext} ),#end #end;
+#end
 
     private final String classpathToResource;
 

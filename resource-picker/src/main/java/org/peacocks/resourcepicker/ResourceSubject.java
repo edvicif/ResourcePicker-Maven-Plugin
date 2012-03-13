@@ -34,7 +34,7 @@ public class ResourceSubject {
     }
     
     public String getClassPath(){
-        return "/" + packageName.replace(".", "/") ;
+        return packageName.replace(".", "/") ;
     }
 
     public String getResourceName() {

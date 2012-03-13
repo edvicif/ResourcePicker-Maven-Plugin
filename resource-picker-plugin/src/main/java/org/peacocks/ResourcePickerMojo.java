@@ -19,11 +19,17 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.maven.model.Build;
+import org.apache.maven.model.Resource;
+import org.apache.maven.project.MavenProject;
+import org.peacocks.resourcepicker.ResourceGeneration;
 
 /**
  * Goal which touches a timestamp file.
@@ -37,7 +43,8 @@ public class ResourcePickerMojo
 
     /**
      * Location of the file. 
-     * @parameter expression="${project.build.sourceDirectory}/com/mycompany" @required
+     * @parameter expression="${project.build.sourceDirectory}/"
+     * @required
      */
     private File outputDirectory;
     /**
@@ -45,74 +52,24 @@ public class ResourcePickerMojo
      * @required
      */
     private File scanDirectory;
-
+    
     public void execute()
             throws MojoExecutionException {
-        ensureOutputDirectoryExists();
-        System.out.println(scanDirectory);
-        File enumFile = new File(outputDirectory, "R.java");
-        writeEnum(enumFile, listFilesInScanDirectory());
-    }
-
-    private void ensureOutputDirectoryExists() {
-        if (!outputDirectory.exists()) {
-            outputDirectory.mkdirs();
-        }
-    }
-
-    private String escapeFilename(File file) {
-        return file.getName().toUpperCase().replaceAll("\\.", "_");
-    }
-
-    private void writeEnum(File touch, List<File> listFilesInScanDirectory) throws MojoExecutionException {
-        FileWriter w = null;
-
-
         try {
-            w = new FileWriter(touch);
-
-            w.write(enumContent(listFilesInScanDirectory));
-        } catch (IOException e) {
-            throw new MojoExecutionException("Error creating file " + touch, e);
-        } finally {
-            if (w != null) {
-                try {
-                    w.close();
-                } catch (IOException e) {
-                    // ignore
-                }
+            Map<String,Object> ctx = getPluginContext();
+            MavenProject mavenProject= (MavenProject) ctx.get("project");
+            Build mavenBuild = mavenProject.getBuild();
+            List<Path> resources = new ArrayList<>();
+            
+            for(Resource resource : mavenBuild.getResources()){
+                Path path = java.nio.file.Paths.get(resource.getDirectory());
+                resources.add(path);
             }
+            ResourceGeneration resourceGeneration = new ResourceGeneration(resources, outputDirectory.toPath());
+            resourceGeneration.generateResourceFiles();
+        } catch (IOException ex) {
+            Logger.getLogger(ResourcePickerMojo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private String enumContent(List<File> listFilesInScanDirectory) {
-        return "package com.mycompany;\n"
-                + "public enum R {\n\n"
-                + generateEnumStringFromFileList(listFilesInScanDirectory) + "\n\n"
-                + constructor() + "\n\n"
-                + "}";
-    }
-
-    private List<File> listFilesInScanDirectory() {
-        if (scanDirectory.exists()) {
-            return Arrays.asList(scanDirectory.listFiles());
-        }
-        return new ArrayList<File>();
-    }
-
-    private String generateEnumStringFromFileList(List<File> listFilesInScanDirectory) {
-        StringBuilder result = new StringBuilder();
-        for (File file : listFilesInScanDirectory) {
-            result.append(escapeFilename(file))
-                    .append("(\"").append(file.getName()).append("\")")
-                    .append(",");
-        }
-        result.append(";");
-        return result.toString();
-    }
-
-    private String constructor() {
-        return "private R(String fileName) {\n"
-                + "}";
-    }
 }
