@@ -20,7 +20,7 @@ public enum R{
         this.classpathToResource = classpathToResource;
     }
 
-    private String getPathToResource(){
+    public String getPathToResource(){
         return classpathToResource;
     }
 }
