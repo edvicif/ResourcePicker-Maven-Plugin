@@ -1,7 +1,5 @@
 package com.mycompany.hellotest;
 
-import com.mycompany.R;
-
 
 
 /**

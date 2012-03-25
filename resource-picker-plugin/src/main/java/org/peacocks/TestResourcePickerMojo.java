@@ -27,10 +27,10 @@ import org.peacocks.resourcepicker.ResourceGeneration;
 /**
  * Goal which touches a timestamp file.
  *
- * @goal resource
- * @phase process-resources
+ * @goal testresource
+ * @phase process-test-resources
  */
-public class ResourcePickerMojo
+public class TestResourcePickerMojo
         extends AbstractMojo {
 
    /**
@@ -44,7 +44,7 @@ public class ResourcePickerMojo
 
     /**
      * Location of the file. 
-     * @parameter default-value="${project.build.directory}/generated-sources/resources"
+     * @parameter default-value="${project.build.directory}/generated-test-sources/resources"
      * @required
      */
     private File outputDirectory;
@@ -55,9 +55,9 @@ public class ResourcePickerMojo
     public void execute()
             throws MojoExecutionException {
         try {
-            List<Path> resources =MavenResourceToPathConverterImpl.INTANCE.getResourceDirectories(mavenProject.getBuild(), mavenProject.getResources());
+            List<Path> resources =MavenResourceToPathConverterImpl.INTANCE.getResourceDirectories(mavenProject.getBuild(), mavenProject.getTestResources());
             new ResourceGeneration(resources, outputDirectory.toPath()).generateResourceFiles();
-            mavenProject.addCompileSourceRoot(outputDirectory.getAbsolutePath());
+            mavenProject.addTestCompileSourceRoot(outputDirectory.getAbsolutePath());
         } catch (IOException ex) {
             getLog().error("Unable to generate resources", ex);
         }
