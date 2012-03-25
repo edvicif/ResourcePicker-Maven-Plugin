@@ -18,7 +18,7 @@ public enum ResourceWriter {
     }
     public void writeResource(Path targetPath, Map<String, String> resourceDefintions, String resourceFileName) throws IOException{
         if(!Files.exists(targetPath)){
-            Files.createDirectory(targetPath);
+            Files.createDirectories(targetPath);
         }
         
         String separator = FileSystems.getDefault().getSeparator();

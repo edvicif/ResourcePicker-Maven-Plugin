@@ -23,9 +23,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.maven.model.Build;
 import org.apache.maven.model.Resource;
 import org.apache.maven.project.MavenProject;
@@ -41,35 +38,43 @@ import org.peacocks.resourcepicker.ResourceGeneration;
 public class ResourcePickerMojo
         extends AbstractMojo {
 
+   /**
+   * The default maven project object.
+   *
+   * @parameter expression="${project}"
+   * @required
+   * @readonly
+   */
+   private MavenProject mavenProject;
+
     /**
      * Location of the file. 
-     * @parameter expression="${project.build.sourceDirectory}/"
+     * @parameter default-value="${project.build.directory}/generated-sources/resources"
      * @required
      */
     private File outputDirectory;
-    /**
-     * @parameter expression="${basedir}/src/main/resources" 
-     * @required
-     */
-    private File scanDirectory;
-    
+
+
+
+    @Override
     public void execute()
             throws MojoExecutionException {
         try {
-            Map<String,Object> ctx = getPluginContext();
-            MavenProject mavenProject= (MavenProject) ctx.get("project");
-            Build mavenBuild = mavenProject.getBuild();
-            List<Path> resources = new ArrayList<>();
-            
-            for(Resource resource : mavenBuild.getResources()){
-                Path path = java.nio.file.Paths.get(resource.getDirectory());
-                resources.add(path);
-            }
-            ResourceGeneration resourceGeneration = new ResourceGeneration(resources, outputDirectory.toPath());
-            resourceGeneration.generateResourceFiles();
+            new ResourceGeneration(getResourceDirectories(), outputDirectory.toPath()).generateResourceFiles();
+            mavenProject.addCompileSourceRoot(outputDirectory.getAbsolutePath());
         } catch (IOException ex) {
-            Logger.getLogger(ResourcePickerMojo.class.getName()).log(Level.SEVERE, null, ex);
+            getLog().error("Unable to generate resources", ex);
         }
+    }
+
+    private List<Path> getResourceDirectories() {
+        Build mavenBuild = mavenProject.getBuild();
+        List<Path> resources = new ArrayList<>();
+        for(Resource resource : mavenBuild.getResources()){
+            Path path = java.nio.file.Paths.get(resource.getDirectory());
+            resources.add(path);
+        }
+        return resources;
     }
 
 }

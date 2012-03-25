@@ -63,21 +63,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.peacocks</groupId>
-                <artifactId>resource-picker-plugin</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <executions>
-                  
-                    <execution>
-                        <id>TestRunner</id>
-                        <goals>
-                            <goal>touch</goal>
-                        </goals>
-                        <phase>process-resources</phase>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.2</version>
