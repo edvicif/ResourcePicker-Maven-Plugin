@@ -15,6 +15,20 @@ import org.junit.BeforeClass;
  */
 public class ResourceSubjectTest {
 
+    @Test(expected=IllegalArgumentException.class)
+    public void testNullPackageNameNotAllowed(){
+        new ResourceSubject(null, "", "");
+    }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void testNullResourceNameNotAllowed(){
+        new ResourceSubject("", null, "");
+    }
+    @Test(expected=IllegalArgumentException.class)
+    public void testNullResourceTypeNotAllowed(){
+        new ResourceSubject("", "", null);
+    }
+
     @Test
     public void testEnumNameGeneration() {
         ResourceSubject resourceSubject = ResourceSubject.Builder.instance().resourceName("name.this").resourceType("type").build();

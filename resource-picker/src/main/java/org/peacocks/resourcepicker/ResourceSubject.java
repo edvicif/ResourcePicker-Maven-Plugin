@@ -2,6 +2,7 @@ package org.peacocks.resourcepicker;
 
 import java.util.Objects;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.Validate;
 
 /**
  *
@@ -14,13 +15,16 @@ public class ResourceSubject {
     private final String resourceType;
 
     public ResourceSubject(String packageName, String resourceName, String resourceType) {
+        Validate.notNull(packageName);
+        Validate.notNull(resourceName);
+        Validate.notNull(resourceType);
+
         this.packageName = packageName;
         this.resourceName = resourceName;
         this.resourceType = resourceType;
     }
     
     public String getEnumName(){
-        //TODO repleace null check with apachecommons
         StringBuilder enumName = new StringBuilder(resourceName.toUpperCase());
         if(StringUtils.isNotEmpty(resourceType)){
             enumName.append("_").append(resourceType.toUpperCase());
@@ -76,9 +80,9 @@ public class ResourceSubject {
     }
     public static class Builder {
 
-        private String packageName;
-        private String resourceName;
-        private String resourceType;
+        private String packageName = "";
+        private String resourceName = "";
+        private String resourceType = "";
 
         public Builder packageName(String packageName) {
             this.packageName = packageName;
