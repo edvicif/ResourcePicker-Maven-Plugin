@@ -4,7 +4,7 @@ package ${packageName};
 ##TODO find foreach first to able to use tab at first characters
 ##TODO use resource file name
 
-public enum R{
+public enum R {
 
 #if ( ${packageName} ne "" )
 #foreach ( ${resource} in ${resources} )

@@ -15,6 +15,7 @@ import org.apache.velocity.context.Context;
  * @author edvicif
  */
 public enum ResourceEnumerationGenerator {
+	
     INSTANCE;
 
     public Map<String, String> generateEnumerations(List<ResourceSubject> resourceSubjects) {

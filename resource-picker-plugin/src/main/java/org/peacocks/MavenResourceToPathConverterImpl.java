@@ -17,8 +17,7 @@ import org.apache.maven.model.Resource;
  */
 public enum MavenResourceToPathConverterImpl implements MavenResourceToPathConverter {
 
-    INTANCE;
-
+    INSTANCE;
 
     @Override
     public List<Path> getResourceDirectories(Build mavenBuild, List<Resource> mavenResourceDirs) {

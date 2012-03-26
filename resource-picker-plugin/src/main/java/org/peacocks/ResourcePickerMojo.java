@@ -55,7 +55,7 @@ public class ResourcePickerMojo
     public void execute()
             throws MojoExecutionException {
         try {
-            List<Path> resources =MavenResourceToPathConverterImpl.INTANCE.getResourceDirectories(mavenProject.getBuild(), mavenProject.getResources());
+            List<Path> resources = MavenResourceToPathConverterImpl.INSTANCE.getResourceDirectories(mavenProject.getBuild(), mavenProject.getResources());
             new ResourceGeneration(resources, outputDirectory.toPath()).generateResourceFiles();
             mavenProject.addCompileSourceRoot(outputDirectory.getAbsolutePath());
         } catch (IOException ex) {
