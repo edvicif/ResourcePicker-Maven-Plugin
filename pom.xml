@@ -12,6 +12,7 @@
     <modules>
         <module>resource-picker</module>
         <module>resource-picker-plugin</module>
+        <module>resource-picker-plugin-functiontest</module>
     </modules>
     
     <build>

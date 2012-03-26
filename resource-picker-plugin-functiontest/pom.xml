@@ -3,12 +3,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.mycompany</groupId>
-    <artifactId>HelloTest</artifactId>
-    <version>1.0-SNAPSHOT</version>
+     <parent>
+        <groupId>org.peacocks</groupId>
+        <artifactId>resource-picker-parrent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>resourcePickerPluginFt</artifactId>
     <packaging>jar</packaging>
 
-    <name>PluginTester</name>
+    <name>resource-picker-plugin-functiotest</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -20,8 +23,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.10</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.peacocks</groupId>
