@@ -11,6 +11,7 @@ import java.util.Map;
  * @author edvicif
  */
 public enum ResourceWriter {
+
     INSTANCE;
     
     public void writeResource(Path targetPath, Map<String, String> resourceDefintions) throws IOException{

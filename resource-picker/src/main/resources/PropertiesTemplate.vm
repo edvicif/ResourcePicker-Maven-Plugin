@@ -1,0 +1,23 @@
+public enum PROPERTIES {
+
+#foreach ( ${resource} in ${properties} )
+    #if(${foreach.count} == 1)    #end${resource.enumName}(R.${resource.enumName})#if( ${foreach.hasNext} ),#end #end;
+
+        private final R resource;
+
+        PROPERTIES(R resource) {
+            this.resource = resource;
+        }
+
+        public Properties asProperties() {
+            InputStream in = this.getClass().getResourceAsStream(resource.getPathToResource());
+            Properties prop = new Properties();
+            try {
+                prop.load(in);
+                in.close();
+            } catch (IOException e) {
+                //TODO Exception handling
+            }
+            return prop;
+        }
+    }

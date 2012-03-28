@@ -4,8 +4,11 @@
  */
 package org.peacocks;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.Test;
+import testRes.R;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  *
@@ -13,7 +16,8 @@ import static org.junit.Assert.*;
  */
 public class ReasourceLoadTest {
 
-     @Test
+
+    @Test
      public void testNormalResourcesGenerated() {
          assertNotNull(this.getClass().getResourceAsStream(sub.R.SAMPLE_XML.getPathToResource()));
      }
@@ -22,4 +26,10 @@ public class ReasourceLoadTest {
      public void testTestResourcesGenerated() {
          assertNotNull(this.getClass().getResourceAsStream(testRes.R.TESTRESOURCE_TXT.getPathToResource()));
      }
+
+    @Test
+    public void testTestPropertieFileAccesibleAsPropertiesObject() {
+        assertEquals("42",R.PROPERTIES.TESTPROPERTIES_PROPERTIES.asProperties().get("test"));
+        assertEquals("hello",R.PROPERTIES.TESTPROPERTIES2_PROPERTIES.asProperties().get("test"));
+    }
 }
